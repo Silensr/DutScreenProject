@@ -1,6 +1,6 @@
 void setup(){
-    size(600,200); //Ces tailles seront ammennées à être changées dans le futur.
-    textSize(100); 
+    size(400,200); //Ces tailles seront ammennées à être changées dans le futur.
+    textSize(100); //Cette fonction permet de changer la taille du texte
     frameRate(30); //J'ai défini un framerate à 30 images par secondes.
 }
 
@@ -20,7 +20,7 @@ void draw(){
     else{
         i--;
     }
-
+    //La variable evo sert à faire alterner la transparence.
     if(i==255) evo = false;
     else if(i==0) evo = true;
 }
