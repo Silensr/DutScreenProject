@@ -39,6 +39,23 @@ public class Barre extends JFrame{
 
     }
 
+    public Barre(Boolean fullscreen){
+        if (fullscreen) {
+            this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+            this.setUndecorated(true);
+            this.setVisible(true);
+
+            Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+
+
+            height =(int) size.getHeight(); width =(int) size.getWidth();
+
+            this.paint(this.getGraphics());
+
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        }
+    }
+
     public void setLevel(int level) {
         this.level = level;
     }
