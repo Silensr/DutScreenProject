@@ -72,16 +72,15 @@ public class Barre extends JFrame{
     public void paint(Graphics g){
         super.paint(g);
         
-        double quantum =   ((double) width)/1023.0;
+
+        double quantum = ((double) width)/1023.0;
 
         g.setColor(Color.BLACK);
 
-        g.drawRect(0, 0, this.getWidth(), this.getHeight());
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         for (int i = 0; i < (int) level*quantum; i++) {
             
-            
-
             g.setColor(colorMixer(i, this.getWidth()));
 
             g.drawLine(i, 1, i, this.getHeight()-1);
