@@ -1,36 +1,36 @@
-import java.awt.event.*;
-import javax.swing.Timer;
+import java.util.Scanner;
+import com.fazecast.jSerialComm.*;
+
+
 /**
  * Barre
  */
-
-
-public class Main implements ActionListener{
-
-    private Barre jauge;
-    private Timer tick;
-
-    public Main()
+public class Main{
+    public static void main(String[] args) 
     {
-        jauge = new Barre(true);
+        Barre barre = new Barre(true);
 
-        tick = new Timer(1000, this);
+        SerialPort comPort = SerialPort.getCommPorts()[0];
+        comPort.openPort();
+        try 
+        {
+            while (true)
+            {
+                while (comPort.bytesAvailable() == 0)
+                    Thread.sleep(20);
 
-        tick.start();
+                Scanner data = new Scanner(comPort.getInputStream());
+
+                while(data.hasNextLine())
+                {
+                    int number = 0;
+                    try{number = Integer.parseInt(data.nextLine());}catch(Exception e){}
+                    barre.setLevel(number);
+                }
+            }
+        } 
+        catch (Exception e) { e.printStackTrace(); }
+        comPort.closePort();
+
     }
-    public static void main(String[] args) {
-        
-        new Main();
-
-    }
-
-    public void actionPerformed(ActionEvent event) {
-        Object source = event.getSource();
-
-        if (source == tick) {
-            jauge.setLevel((int) (Math.random()*1023));
-
-            jauge.repaint();
-        }
-    }   
-}
+}   

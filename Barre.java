@@ -58,6 +58,8 @@ public class Barre extends JFrame{
 
     public void setLevel(int level) {
         this.level = level;
+
+        this.repaint();
     }
 
     private static Color colorMixer(int level, int max) {
