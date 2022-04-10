@@ -1,2 +1,2 @@
 Main-Class: Main
-Class-Path: lib\jSerialComm-2.9.1.jar
+Class-Path: jSerialComm-2.9.1.jar
