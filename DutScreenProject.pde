@@ -1,26 +1,41 @@
-void setup(){
-    size(400,200); //Ces tailles seront ammennées à être changées dans le futur.
-    textSize(100); //Cette fonction permet de changer la taille du texte
-    frameRate(30); //J'ai défini un framerate à 30 images par secondes.
+import processing.serial.*;
+
+Serial port; //initialisation des variables
+String Sensval;
+int val;
+
+void setup()
+{
+  fullScreen(); //plein écran
+  port = new Serial(this, "COM3", 9600); //Ouverture de la connexion en port série
+  for(int j = 0; j<Serial.list().size(); j++ )
+  print(Serial.list()[j]);
 }
 
-int i=0; // Cette variable correspond à la transparence du texte. Elle sera modifié par la hauteur sonore mesurée.
-boolean evo = true;
-void draw(){
-    background(0,0,0); //On crée un fond de couleur noir.
-    // Normalement, on la place dans set-up, mais comme à chaque que l'on utilise text(), processing superpose directement, ça permet d'effacer le contenu.
-    fill(255, 255, 255, i); //Cette fonction permet de régler la couleur et la transparence du texte.
-    text("Hello !!", 0, 120); //Et celle là affiche la chaîne qui est placée en premier argument, aux coordonnées 
-
-
-    //Cette partie du code sert à modifier la montée et la descente de la transparence du texte.
-    if(evo){
-        i++;
+void draw()
+{
+  if(port.available() > 0)
+  {
+    background(0,0,0);
+    
+    Sensval = port.readStringUntil('\n');
+  
+    try
+    {
+      val = Integer.valueOf(Sensval.trim());
     }
-    else{
-        i--;
+    catch(Exception e){;}
+    
+    for(int i = 0; i <= map(val,0,1023,0,width); i++)
+    {
+      
+      stroke(color(map(i,0,width,0,255),0,map(i,0,width,255,0)));
+      line(i,0,i,height);
+      println(map(i,0,width,0,255));
     }
-    //La variable evo sert à faire alterner la transparence.
-    if(i==255) evo = false;
-    else if(i==0) evo = true;
+    
+    
+    //println(val);
+    
+  }
 }
