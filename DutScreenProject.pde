@@ -7,9 +7,9 @@ int val;
 void setup()
 {
   fullScreen(); //plein écran
-  port = new Serial(this, "COM3", 9600); //Ouverture de la connexion en port série
+  port = new Serial(this, Serial.list()[1], 9600); //Ouverture de la connexion en port série
   for(int j = 0; j<Serial.list().size(); j++ )
-  print(Serial.list()[j]);
+  //print(Serial.list()[j]);
 }
 
 void draw()
